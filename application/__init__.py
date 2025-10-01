@@ -27,3 +27,6 @@ from .routes import routes_bp
 # Register blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(routes_bp)
+
+# Import models after app creation to avoid circular imports
+from . import models

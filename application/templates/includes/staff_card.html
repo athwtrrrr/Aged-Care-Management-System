@@ -1,0 +1,20 @@
+<div class="col">
+    <div class="card h-100">
+        <div class="card-body text-center">
+            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                <i class="fas fa-{{ staff.icon_class }}"></i>
+            </div>
+            <h5 class="card-title mb-1">{{ staff.first_name }} {{ staff.last_name }}</h5>
+            <p class="text-muted mb-2">{{ staff.position }}{% if staff.department %} - {{ staff.department }}{% endif %}</p>
+            <a class="text-primary small" data-bs-toggle="collapse" href="#details-{{ staff.staff_id }}" role="button">
+                <i class="fas fa-chevron-down me-1"></i>Details
+            </a>
+            <div class="collapse mt-3" id="details-{{ staff.staff_id }}">
+                <p class="mb-1"><strong>ID:</strong> {{ staff.staff_id }}</p>
+                <p class="mb-1"><strong>Contact:</strong> {{ staff.email }}</p>
+                {% if staff.phone %}<p class="mb-1"><strong>Phone:</strong> {{ staff.phone }}</p>{% endif %}
+                {% if staff.extension %}<p class="mb-0"><strong>Extension:</strong> {{ staff.extension }}</p>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>

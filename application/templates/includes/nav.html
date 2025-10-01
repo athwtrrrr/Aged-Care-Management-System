@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Aged Care Logo" class="logo-img me-2" style="height: 40px;">
+        <a class="navbar-brand fw-bold" href="{{ url_for('routes.index') }}">ACMS</a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if home %}active{% endif %}" href="{{ url_for('routes.index') }}">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
+                </li>
+
+                {% if 'role' in session %}
+                    {% if session['role'] == 'admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if admin_dashboardresident %}active{% endif %}"
+                               href="{{ url_for('routes.admin_dashboardresident') }}">
+                                <i class="fas fa-users me-1"></i>Residents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if admin_staff_directory %}active{% endif %}"
+                               href="{{ url_for('routes.admin_staff_directory') }}">
+                                <i class="fas fa-user-tie me-1"></i>Staff
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if inventory %}active{% endif %}" 
+                               href="{{ url_for('routes.inventory') }}">
+                                <i class="fas fa-boxes me-1"></i>Inventory
+                            </a>
+                        </li>
+                    {% elif session['role'] == 'staff' %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if inventory %}active{% endif %}" 
+                               href="{{ url_for('routes.inventory') }}">
+                                <i class="fas fa-boxes me-1"></i>Inventory
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if staff_directory %}active{% endif %}" 
+                               href="{{ url_for('routes.staff_directory') }}">
+                                <i class="fas fa-users me-1"></i>Staff Directory
+                            </a>
+                        </li>
+                    {% elif session['role'] == 'resident' %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if family_portalresident %}active{% endif %}" 
+                               href="{{ url_for('routes.family_portalresident') }}">
+                                <i class="fas fa-user me-1"></i>My Dashboard
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if session['role'] in ['admin', 'resident'] %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if services %}active{% endif %}" 
+                               href="{{ url_for('routes.services') }}">
+                                <i class="fas fa-hands-helping me-1"></i>Services
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                {% if 'user_id' in session %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i>{{ session.username }} ({{ session.role }})
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ url_for('routes.logout') }}">
+                                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.login') }}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

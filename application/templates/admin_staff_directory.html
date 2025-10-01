@@ -66,137 +66,76 @@
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3><i class="fas fa-users me-2"></i>Staff Directory</h3>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addStaffModal">
-                <i class="fas fa-user-plus me-1"></i> Add Staff
-            </button>
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-5">
-            <!-- Staff 1 -->
+            {% for member in staff %}
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
-                            <i class="fas fa-user-nurse"></i>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h5 class="card-title mb-1">Mary Jones</h5>
-                        <p class="text-muted mb-2">Nurse - ICU</p>
-                        <a class="text-primary small" data-bs-toggle="collapse" href="#details-1" role="button">
+                        <h5 class="card-title mb-1">{{ member.name }}</h5>
+                        <p class="text-muted mb-2">{{ member.position }}</p>
+                        <a class="text-primary small" data-bs-toggle="collapse" href="#details-{{ member.staff_id }}" role="button">
                             <i class="fas fa-chevron-down me-1"></i>Details
                         </a>
-                        <div class="collapse mt-3" id="details-1">
-                            <p class="mb-1"><strong>ID:</strong> EMP-1001</p>
-                            <p class="mb-1"><strong>Contact:</strong> mjones@acms.org</p>
-                            <p class="mb-0"><strong>Extension:</strong> x2101</p>
+                        <div class="collapse mt-3" id="details-{{ member.staff_id }}">
+                            <p class="mb-1"><strong>ID:</strong> {{ member.staff_id }}</p>
+                            <p class="mb-1"><strong>Contact:</strong> {{ member.email }}</p>
+                            <p class="mb-0"><strong>Extension:</strong> {{ member.extension }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
+        </div>
+    <<!-- Button to trigger modal -->
+<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addStaffModal">
+    <i class="fas fa-user-plus me-1"></i> Add Staff
+</button>
 
-            <!-- Staff 2 -->
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
-                            <i class="fas fa-broom"></i>
-                        </div>
-                        <h5 class="card-title mb-1">Tom Nguyen</h5>
-                        <p class="text-muted mb-2">Cleaner</p>
-                        <a class="text-primary small" data-bs-toggle="collapse" href="#details-2" role="button">
-                            <i class="fas fa-chevron-down me-1"></i>Details
-                        </a>
-                        <div class="collapse mt-3" id="details-2">
-                            <p class="mb-1"><strong>ID:</strong> EMP-1002</p>
-                            <p class="mb-1"><strong>Contact:</strong> tnguyen@acms.org</p>
-                            <p class="mb-0"><strong>Extension:</strong> x2104</p>
-                        </div>
-                    </div>
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="addStaffModal" tabindex="-1" aria-labelledby="addStaffModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addStaffModalLabel">Add Staff</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-            <!-- Staff 3 -->
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <h5 class="card-title mb-1">David Lee</h5>
-                        <p class="text-muted mb-2">Cook</p>
-                        <a class="text-primary small" data-bs-toggle="collapse" href="#details-3" role="button">
-                            <i class="fas fa-chevron-down me-1"></i>Details
-                        </a>
-                        <div class="collapse mt-3" id="details-3">
-                            <p class="mb-1"><strong>ID:</strong> EMP-1003</p>
-                            <p class="mb-1"><strong>Contact:</strong> dlee@acms.org</p>
-                            <p class="mb-0"><strong>Extension:</strong> x2102</p>
-                        </div>
+            <div class="modal-body">
+                <form action="{{ url_for('routes.add_staff') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
-                </div>
-            </div>
-
-            <!-- Staff 4 -->
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
-                            <i class="fas fa-concierge-bell"></i>
-                        </div>
-                        <h5 class="card-title mb-1">Aisha Patel</h5>
-                        <p class="text-muted mb-2">Receptionist</p>
-                        <a class="text-primary small" data-bs-toggle="collapse" href="#details-4" role="button">
-                            <i class="fas fa-chevron-down me-1"></i>Details
-                        </a>
-                        <div class="collapse mt-3" id="details-4">
-                            <p class="mb-1"><strong>ID:</strong> EMP-1004</p>
-                            <p class="mb-1"><strong>Contact:</strong> apatel@acms.org</p>
-                            <p class="mb-0"><strong>Extension:</strong> x2103</p>
-                        </div>
+                    <div class="mb-3">
+                        <label for="position" class="form-label">Position</label>
+                        <input type="text" class="form-control" id="position" name="position" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="phone" name="phone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="extension" class="form-label">Extension</label>
+                        <input type="text" class="form-control" id="extension" name="extension">
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department</label>
+                        <input type="text" class="form-control" id="department" name="department">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Staff</button>
+                </form>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="addStaffModal" tabindex="-1" aria-labelledby="addStaffModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addStaffModalLabel">Add New Staff</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="staffName" class="form-label">Staff Name</label>
-                            <input type="text" class="form-control" id="staffName" placeholder="Enter staff name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="staffPosition" class="form-label">Position</label>
-                            <input type="text" class="form-control" id="staffPosition" placeholder="Enter staff position">
-                        </div>
-                        <div class="mb-3">
-                            <label for="staffEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="staffEmail" placeholder="Enter staff email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="staffPhone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="staffPhone" placeholder="Enter staff phone number">
-                        </div>
-                        <div class="mb-3">
-                            <label for="staffExtension" class="form-label">Extension</label>
-                            <input type="text" class="form-control" id="staffExtension" placeholder="Enter staff extension">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save Staff</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+</div>
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="section-title">
@@ -296,7 +235,61 @@
       </div>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form[action="{{ url_for("routes.add_staff") }}"]');
+        const staffContainer = document.querySelector('.row.row-cols-1.row-cols-md-2.row-cols-lg-3.row-cols-xl-4');
 
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    // Create a new staff card dynamically
+                    const newCard = document.createElement('div');
+                    newCard.className = 'col';
+                    newCard.innerHTML = `
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h5 class="card-title mb-1">${data.name}</h5>
+                                <p class="text-muted mb-2">${data.position}</p>
+                                <a class="text-primary small" data-bs-toggle="collapse" href="#details-${data.email}" role="button">
+                                    <i class="fas fa-chevron-down me-1"></i>Details
+                                </a>
+                                <div class="collapse mt-3" id="details-${data.email}">
+                                    <p class="mb-1"><strong>Contact:</strong> ${data.email}</p>
+                                    <p class="mb-1"><strong>Phone:</strong> ${data.phone}</p>
+                                    <p class="mb-0"><strong>Extension:</strong> ${data.extension}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    staffContainer.appendChild(newCard);
+
+                    // Reset the form
+                    form.reset();
+
+                    // Close the modal if it's open
+                    const modal = bootstrap.Modal.getInstance(document.querySelector('#addStaffModal'));
+                    if (modal) modal.hide();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
