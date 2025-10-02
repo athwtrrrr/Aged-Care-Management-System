@@ -22,3 +22,4 @@ The **Aged Care Management System (ACMS)** is a comprehensive web-based solution
 - **Database**: MySQL 
 - **Authentication**: Session-based with password hashing
 - **Hosting**: Local Hosting with XAMPP
+![Login Page](application/static/images/Login.png)
